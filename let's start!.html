@@ -40,12 +40,44 @@
   .plused-button{
     font-family: 'Hiragino Maru Gothic Pro W4';
     font-size: 40px;
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     border-radius: 7px;
     background-color: transparent;
     border: none;
   }
+  .label-container {
+    display: none;
+    position: absolute;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; 
+    height: 200px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .rectangle {
+    position: absolute;
+    width: 400px;
+    height: 90px;
+    margin: 30px;
+    background-color: #ffebcd;
+    z-index: -1; 
+    border-radius: 10px;
+    }
+
+  .subject-label{
+    font-size: 50px;
+    text-align: center;
+    width: 90%;
+    background-color: transparent;
+    position: relative;
+    z-index: 1;
+    
+  }
+  
 </style>
 <body>
   <form>
@@ -56,5 +88,18 @@
   <button class="start-button">スタート</button>
   <button class="plused-button">+</button>
 </div>
+</div>
+<div class="label-container" id="label-container">
+  <div class="rectangle"></div>
+  <input id="subject-label" name="subject-label" type="text" placeholder="やること" />
+</div>
+<script>
+  
+  document.querySelector('.plused-button').addEventListener('click', function() {
+      var labelContainer = document.getElementById('label-container');
+      labelContainer.style.display = 'flex';
+    });
+   
+</script>
 </body>
 </html>
