@@ -51,9 +51,8 @@
     }
 
     .label-container {
-      width: 600px;
-      /*高さ*/
-      height: 200px;
+      width: 400px;
+      height: 100px;
       /*これ入れても変わらないね*/
       display: flex;
       /*これなんだろ*/
@@ -76,14 +75,46 @@
     }
 
     #subject-label {
+      font-family: 'Hiragino Maru Gothic Pro W4';
       font-size: 30px;
-      text-align: center;
-      width: 50%;
+      text-align: left;
+      margin-right: 10px;
+      margin-left: 10px;
+      width: 90%;
       background-color: transparent;
-      position: relative;
-      /*これなんだろ*/
+      border: none;
+      position: relative;/*これなんだろ*/
       z-index: 1;
+      
 
+    }
+
+    #hour-label{
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      text-align: center;
+      font-size: 30px;
+      width: 25%;
+      background-color: transparent;
+      border: none;
+      position: relative;
+    }
+    #minit-label{
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      text-align: center;
+      font-size: 30px;
+      width: 25%;
+      background-color: transparent;
+      border: none;
+      position: relative;
+    }
+    #second-label{
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      text-align: center;
+      font-size: 30px;
+      width: 25%;
+      background-color: transparent;
+      border: none;
+      position: relative;
     }
   </style>
 </head>
@@ -97,11 +128,16 @@
     <button class="start-button">スタート</button>
     <button class="plused-button">+</button>
   </div>
-  </div>
+  
   <div class="label-container" id="label-container">
     <div class="rectangle"></div>
     <input id="subject-label" name="subject-label" type="text" placeholder="やること">
+    <input id="hour-label" name="hour-label" type="text" placeholder="00">
+    <input id="minit-label" name="init-label" type="text" placeholder="00">
+    <input id="second-label" name="second-label" type="text" placeholder="00">
+
   </div>
+
   <script>/*これなんだろ*/
 
     document.querySelector('.plused-button').addEventListener('click', function () {
