@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDokunn</title>
+  <style>
+    .app-title {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 30px;
+      font-family: 'Hiragino Maru Gothic Pro W4';
+    }
+
+    .button-box {
+      text-align: center;
+      margin: 5px;
+    }
+
+    .start-button {
+      margin: 10px;
+      margin-left: 30px;
+      margin-right: 30px;
+      height: 45px;
+      width: 160px;
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      font-size: 25px;
+      background-color: #90ee90;
+      border-radius: 7px;
+      border: none;
+    }
+
+    .music-button {
+      font-size: 25px;
+      width: 45px;
+      height: 45px;
+      border-radius: 7px;
+      background-color: #ffc0cb;
+      border: none;
+    }
+
+    .plused-button {
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      font-size: 40px;
+      width: 60px;
+      height: 60px;
+      border-radius: 7px;
+      background-color: transparent;
+      border: none;
+    }
+
+    .label-container {
+      width: 600px;
+      /*高さ*/
+      height: 200px;
+      /*これ入れても変わらないね*/
+      display: flex;
+      /*これなんだろ*/
+      align-items: center;
+      /*これなんだろ*/
+      justify-content: center;
+      /*これなんだろ*/
+      margin: 10px auto 50px auto;
+    }
+
+    .rectangle {
+      position: absolute;
+      /*これなんだろ*/
+      width: 400px;
+      height: 90px;
+      margin: 30px;
+      background-color: #ffebcd;
+      z-index: -1;
+      border-radius: 10px;
+    }
+
+    #subject-label {
+      font-size: 30px;
+      text-align: center;
+      width: 50%;
+      background-color: transparent;
+      position: relative;
+      /*これなんだろ*/
+      z-index: 1;
+
+    }
+  </style>
+</head>
+
+<body>
+  <form>
+    <p class="app-title">とどくん</p>
+  </form>
+  <div class="button-box">
+    <button class="music-button">♪</button>
+    <button class="start-button">スタート</button>
+    <button class="plused-button">+</button>
+  </div>
+  </div>
+  <div class="label-container" id="label-container">
+    <div class="rectangle"></div>
+    <input id="subject-label" name="subject-label" type="text" placeholder="やること">
+  </div>
+  <script>/*これなんだろ*/
+
+    document.querySelector('.plused-button').addEventListener('click', function () {
+      var labelContainer = document.getElementById('label-container');
+      labelContainer.style.display = 'flex';
+    });
+
+  </script>
+</body>
+
+</html>
