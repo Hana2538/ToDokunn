@@ -115,6 +115,28 @@
       border: none;
       position: relative;
     }
+    #dot-label1{
+      pointer-events: none;
+      color: #000;
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      text-align: center;
+      font-size: 30px;
+      width: 5%;
+      background-color: transparent;
+      border: none;
+      position: relative;
+    }
+    #dot-label2{
+      pointer-events: none;
+      color:#000;
+      font-family: 'Hiragino Maru Gothic Pro W4';
+      text-align: center;
+      font-size: 30px;
+      width: 5%;
+      background-color: transparent;
+      border: none;
+      position: relative;
+    }
   </style>
 </head>
 
@@ -129,20 +151,23 @@
   </div>
   
   <div class="label-container" id="label-container">
+
     <div class="rectangle"></div>
     <input id="subject-label" name="subject-label" type="text" placeholder="やること">
     <input id="hour-label" name="hour-label" type="text" placeholder="00">
+    <input id="dot-label1" name="hour-label" placeholder=":" readonly>
     <input id="minit-label" name="init-label" type="text" placeholder="00">
+    <input id="dot-label2" name="hour-label" placeholder=":" readonly>
     <input id="second-label" name="second-label" type="text" placeholder="00">
 
   </div>
 
   <script>
 
-    document.querySelector('.plused-button').addEventListener('click', function () {
-      var labelContainer = document.getElementById('label-container');
-      labelContainer.style.display = 'flex';
-    });
+    // document.querySelector('.plused-button').addEventListener('click', function () {
+    //   var labelContainer = document.getElementById('label-container');
+    //   labelContainer.style.display = 'flex';
+    // });
 
   </script>
 </body>
