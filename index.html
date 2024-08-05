@@ -72,6 +72,13 @@
       z-index: -1;
       border-radius: 10px;
     }
+    .controls {
+            display: flex;
+            width: 550px;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: 15px;
+        }
 
     #subject-label {
       font-family: 'Hiragino Maru Gothic Pro W4';
@@ -84,58 +91,38 @@
       border: none;
       position: relative;/*これなんだろ*/
       z-index: 1;
-      
-
     }
 
-    #hour-label{
+    #hours{
       font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: center;
+      text-align: right;
       font-size: 30px;
-      width: 25%;
+      width: 550%;
       background-color: transparent;
       border: none;
       position: relative;
     }
-    #minit-label{
+    #minutes{
       font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: center;
+      text-align: right;
       font-size: 30px;
-      width: 25%;
+      width: 550%;
       background-color: transparent;
       border: none;
       position: relative;
     }
-    #second-label{
+    #seconds{
       font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: center;
+      text-align: right;
       font-size: 30px;
-      width: 25%;
+      width: 550%;
       background-color: transparent;
       border: none;
       position: relative;
     }
-    #dot-label1{
-      pointer-events: none;
-      color: #000;
+    .colon{
       font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: center;
       font-size: 30px;
-      width: 5%;
-      background-color: transparent;
-      border: none;
-      position: relative;
-    }
-    #dot-label2{
-      pointer-events: none;
-      color:#000;
-      font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: center;
-      font-size: 30px;
-      width: 5%;
-      background-color: transparent;
-      border: none;
-      position: relative;
     }
   </style>
 </head>
@@ -154,11 +141,14 @@
 
     <div class="rectangle"></div>
     <input id="subject-label" name="subject-label" type="text" placeholder="やること">
-    <input id="hour-label" name="hour-label" type="text" placeholder="00">
-    <input id="dot-label1" name="hour-label" placeholder=":" readonly>
-    <input id="minit-label" name="init-label" type="text" placeholder="00">
-    <input id="dot-label2" name="hour-label" placeholder=":" readonly>
-    <input id="second-label" name="second-label" type="text" placeholder="00">
+
+    <div class="controls">
+      <input type="number" id="hours" placeholder="時" min="0" max="99">
+      <span class="colon">:</span>
+      <input type="number" id="minutes" placeholder="分" min="0" max="59">
+      <span class="colon">:</span>
+      <input type="number" id="seconds" placeholder="秒" min="0" max="59">
+    </div>
 
   </div>
 
