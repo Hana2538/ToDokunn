@@ -59,7 +59,7 @@
       /*これなんだろ*/
       justify-content: center;
       /*これなんだろ*/
-      margin: 10px auto 50px auto;
+      margin: 10px auto 10px auto;
     }
 
     .rectangle {
@@ -72,15 +72,16 @@
       z-index: -1;
       border-radius: 10px;
     }
-    .controls {
-            display: flex;
-            width: 550px;
-            justify-content: center;
-            margin-bottom: 20px;
-            margin-top: 15px;
-        }
 
-    #subject-label {
+    .controls {
+      display: flex;
+      width: 550px;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 15px;
+    }
+
+    .subject-label {
       font-family: 'Hiragino Maru Gothic Pro W4';
       font-size: 30px;
       text-align: left;
@@ -89,11 +90,12 @@
       width: 90%;
       background-color: transparent;
       border: none;
-      position: relative;/*これなんだろ*/
+      position: relative;
+      /*これなんだろ*/
       z-index: 1;
     }
 
-    #hours{
+    .time-input {
       font-family: 'Hiragino Maru Gothic Pro W4';
       text-align: right;
       font-size: 30px;
@@ -102,25 +104,8 @@
       border: none;
       position: relative;
     }
-    #minutes{
-      font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: right;
-      font-size: 30px;
-      width: 550%;
-      background-color: transparent;
-      border: none;
-      position: relative;
-    }
-    #seconds{
-      font-family: 'Hiragino Maru Gothic Pro W4';
-      text-align: right;
-      font-size: 30px;
-      width: 550%;
-      background-color: transparent;
-      border: none;
-      position: relative;
-    }
-    .colon{
+
+    .colon {
       font-family: 'Hiragino Maru Gothic Pro W4';
       font-size: 30px;
     }
@@ -134,31 +119,28 @@
   <div class="button-box">
     <button class="music-button">♪</button>
     <button class="start-button">スタート</button>
-    <button class="plused-button">+</button>
+    <button class="plused-button" id="plused-button">+</button>
   </div>
-  
-  <div class="label-container" id="label-container">
-
-    <div class="rectangle"></div>
-    <input id="subject-label" name="subject-label" type="text" placeholder="やること">
-
-    <div class="controls">
-      <input type="number" id="hours" placeholder="時" min="0" max="99">
-      <span class="colon">:</span>
-      <input type="number" id="minutes" placeholder="分" min="0" max="59">
-      <span class="colon">:</span>
-      <input type="number" id="seconds" placeholder="秒" min="0" max="59">
+  <div id="label-group">
+    <div class="label-container">
+      <div class="rectangle"></div>
+      <input class="subject-label" name="subject-label" type="text" placeholder="やること">
+      <div class="controls">
+        <input type="number" class="time-input" placeholder="時" min="0" max="99">
+        <span class="colon">:</span>
+        <input type="number" class="time-input" placeholder="分" min="0" max="59">
+        <span class="colon">:</span>
+        <input type="number" class="time-input" placeholder="秒" min="0" max="59">
+      </div>
     </div>
-
   </div>
-
   <script>
-
-    // document.querySelector('.plused-button').addEventListener('click', function () {
-    //   var labelContainer = document.getElementById('label-container');
-    //   labelContainer.style.display = 'flex';
-    // });
-
+    document.getElementById('plused-button').addEventListener('click', function () {
+      const labelGroup = document.getElementById('label-group');
+      const labelContainer = document.querySelector('.label-container');
+      const clonedLabelContainer = labelContainer.cloneNode(true);
+      labelGroup.appendChild(clonedLabelContainer);
+    });
   </script>
 </body>
 
