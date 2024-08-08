@@ -155,11 +155,43 @@
     </div>
   </div>
   <script>
+    function addDeleteFunctionality(button) {
+      button.addEventListener('click', function () {
+        const labelContainer = this.closest('.label-container');
+        labelContainer.remove();
+      });
+    }
+    document.querySelectorAll('.delete-button').forEach(button => {
+      addDeleteFunctionality(button);
+    });
+    function createLabelContainer() {
+      const labelContainer = document.createElement('div');
+      labelContainer.className = 'label-container';
+      labelContainer.innerHTML = `
+        <div class="rectangle"></div>
+        <input class="subject-label" name="subject-label" type="text" placeholder="やること">
+        <div class="controls">
+          <input type="number" class="time-input" placeholder="時" min="0" max="99">
+          <span class="colon">:</span>
+          <input type="number" class="time-input" placeholder="分" min="0" max="59">
+          <span class="colon">:</span>
+          <input type="number" class="time-input" placeholder="秒" min="0" max="59">
+          <button class="delete-button">×</button>
+        </div>
+      `;
+      return labelContainer;
+    }
     document.getElementById('plused-button').addEventListener('click', function () {
       const labelGroup = document.getElementById('label-group');
-      const labelContainer = document.querySelector('.label-container');
-      const clonedLabelContainer = labelContainer.cloneNode(true);
-      labelGroup.appendChild(clonedLabelContainer);
+      let labelContainer = document.querySelector('.label-container');
+      if (!labelContainer) {
+        labelContainer = createLabelContainer();
+      } else {
+        labelContainer = labelContainer.cloneNode(true);
+      }
+      labelGroup.appendChild(labelContainer);
+      const newDeleteButton = labelContainer.querySelector('.delete-button');
+      addDeleteFunctionality(newDeleteButton);
     });
   </script>
 </body>
