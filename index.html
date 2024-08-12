@@ -214,6 +214,9 @@
   </div>
 
   <script>
+    let isTimerRunning = false;
+    let timerInterval;
+
     function addDeleteFunctionality(button) {
       button.addEventListener('click', function () {
         const labelContainer = this.closest('.label-container');
@@ -274,8 +277,16 @@
 
     function startTimer() {
       const topLabelContainer = document.querySelector('#label-group .label-container');
-      if (topLabelContainer && !topLabelContainer.timer) {
-        topLabelContainer.timer = setInterval(() => updateTimerDisplay(topLabelContainer), 1000);
+      if (topLabelContainer) {
+        if (!isTimerRunning) {
+          timerInterval = setInterval(() => updateTimerDisplay(topLabelContainer), 1000);
+          isTimerRunning = true;
+          document.getElementById('start-button').textContent = "ストップ";
+        } else {
+          clearInterval(timerInterval);
+          isTimerRunning = false;
+          document.getElementById('start-button').textContent = "スタート";
+        }
       }
     }
 
@@ -283,7 +294,6 @@
       startTimer();
     });
 
-    // Initialize delete functionality for existing delete buttons
     document.querySelectorAll('.delete-button').forEach(button => {
       addDeleteFunctionality(button);
     });
