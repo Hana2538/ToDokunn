@@ -120,7 +120,7 @@
       font-family: 'Hiragino Maru Gothic Pro W4';
       text-align: right;
       font-size: 25px;
-      width: 560%;
+      width: 700%;
       background-color: transparent;
       border: none;
       position: relative;
@@ -178,6 +178,7 @@
       font-family: 'Hiragino Maru Gothic Pro W4';
     }
   </style>
+
 </head>
 
 <body>
@@ -193,7 +194,7 @@
         <a href="#">チャイム3</a>
       </div>
     </div>
-    <button class="start-button">スタート</button>
+    <button class="start-button" id="start-button">スタート</button>
     <button class="plused-button" id="plused-button">+</button>
   </div>
 
@@ -202,13 +203,13 @@
       <div class="rectangle"></div>
       <input class="subject-label" name="subject-label" type="text" placeholder="やること">
       <div class="controls">
-        <input type="number" class="time-input" placeholder="時" min="0" max="99">
+        <input type="number" class="time-input" placeholder="時" min="0" max="99" value="0">
         <span class="colon">:</span>
-        <input type="number" class="time-input" placeholder="分" min="0" max="59">
+        <input type="number" class="time-input" placeholder="分" min="0" max="59" value="0">
         <span class="colon">:</span>
-        <input type="number" class="time-input" placeholder="秒" min="0" max="59">
+        <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="0">
       </div>
-      <button class="delete-button" id="delete-button">×</button>
+      <button class="delete-button">×</button>
     </div>
   </div>
 
@@ -219,38 +220,72 @@
         labelContainer.remove();
       });
     }
-    document.querySelectorAll('.delete-button').forEach(button => {
-      addDeleteFunctionality(button);
-    });
+
     function createLabelContainer() {
       const labelContainer = document.createElement('div');
       labelContainer.className = 'label-container';
       labelContainer.innerHTML = `
         <div class="rectangle"></div>
-      <input class="subject-label" name="subject-label" type="text" placeholder="やること">
-      <div class="controls">
-        <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
-        <span class="colon">:</span>
-        <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
-        <span class="colon">:</span>
-        <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
-      </div>
-      <button class="delete-button" id="delete-button">×</button>
-    </div>
+        <input class="subject-label" name="subject-label" type="text" placeholder="やること">
+        <div class="controls">
+          <input type="number" class="time-input" placeholder="時" min="0" max="99" value="0">
+          <span class="colon">:</span>
+          <input type="number" class="time-input" placeholder="分" min="0" max="59" value="0">
+          <span class="colon">:</span>
+          <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="0">
+        </div>
+        <button class="delete-button">×</button>
       `;
       return labelContainer;
     }
+
     document.getElementById('plused-button').addEventListener('click', function () {
       const labelGroup = document.getElementById('label-group');
-      let labelContainer = document.querySelector('.label-container');
-      if (!labelContainer) {
-        labelContainer = createLabelContainer();
-      } else {
-        labelContainer = labelContainer.cloneNode(true);
-      }
+      const labelContainer = createLabelContainer();
       labelGroup.appendChild(labelContainer);
       const newDeleteButton = labelContainer.querySelector('.delete-button');
       addDeleteFunctionality(newDeleteButton);
+    });
+
+    function updateTimerDisplay(labelContainer) {
+      const timeInputs = labelContainer.querySelectorAll('.time-input');
+      let hours = parseInt(timeInputs[0].value, 10);
+      let minutes = parseInt(timeInputs[1].value, 10);
+      let seconds = parseInt(timeInputs[2].value, 10);
+
+      if (seconds > 0) {
+        seconds--;
+      } else if (minutes > 0) {
+        minutes--;
+        seconds = 59;
+      } else if (hours > 0) {
+        hours--;
+        minutes = 59;
+        seconds = 59;
+      } else {
+        clearInterval(labelContainer.timer);
+        return;
+      }
+
+      timeInputs[0].value = String(hours).padStart(2, '0');
+      timeInputs[1].value = String(minutes).padStart(2, '0');
+      timeInputs[2].value = String(seconds).padStart(2, '0');
+    }
+
+    function startTimer() {
+      const topLabelContainer = document.querySelector('#label-group .label-container');
+      if (topLabelContainer && !topLabelContainer.timer) {
+        topLabelContainer.timer = setInterval(() => updateTimerDisplay(topLabelContainer), 1000);
+      }
+    }
+
+    document.getElementById('start-button').addEventListener('click', function () {
+      startTimer();
+    });
+
+    // Initialize delete functionality for existing delete buttons
+    document.querySelectorAll('.delete-button').forEach(button => {
+      addDeleteFunctionality(button);
     });
   </script>
 </body>
