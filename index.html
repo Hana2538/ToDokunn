@@ -266,7 +266,9 @@
         minutes = 59;
         seconds = 59;
       } else {
-        clearInterval(labelContainer.timer);
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        document.getElementById('start-button').textContent = "スタート";
         return;
       }
 
@@ -289,6 +291,8 @@
         }
       }
     }
+
+
 
     document.getElementById('start-button').addEventListener('click', function () {
       startTimer();
