@@ -191,11 +191,12 @@
       <div class="dropdown-content">
         <a href="#">チャイム1</a>
         <a href="#">チャイム2</a>
-        <a href="#">チャイム3</a>
       </div>
     </div>
     <button class="start-button" id="start-button">スタート</button>
     <button class="plused-button" id="plused-button">+</button>
+    <audio id="chime1" src="/Users/hana/Desktop/その他/chime1 - 2024:08:20 23.10.mp3" preload="auto"></audio>
+    <audio id="chime2" src="/Users/hana/Desktop/その他/chime2 - 2024:08:20 23.29.mp3" preload="auto"></audio>
   </div>
 
   <div id="label-group">
@@ -203,11 +204,11 @@
       <div class="rectangle"></div>
       <input class="subject-label" name="subject-label" type="text" placeholder="やること">
       <div class="controls">
-        <input type="number" class="time-input" placeholder="時" min="0" max="99" value="0">
+        <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
         <span class="colon">:</span>
-        <input type="number" class="time-input" placeholder="分" min="0" max="59" value="0">
+        <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
         <span class="colon">:</span>
-        <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="0">
+        <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
       </div>
       <button class="delete-button">×</button>
     </div>
@@ -216,6 +217,7 @@
   <script>
     let isTimerRunning = false;
     let timerInterval;
+    let currentLabelIndex = 0;
 
     function addDeleteFunctionality(button) {
       button.addEventListener('click', function () {
@@ -231,11 +233,11 @@
         <div class="rectangle"></div>
         <input class="subject-label" name="subject-label" type="text" placeholder="やること">
         <div class="controls">
-          <input type="number" class="time-input" placeholder="時" min="0" max="99" value="0">
+          <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
           <span class="colon">:</span>
-          <input type="number" class="time-input" placeholder="分" min="0" max="59" value="0">
+          <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
           <span class="colon">:</span>
-          <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="0">
+          <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
         </div>
         <button class="delete-button">×</button>
       `;
@@ -268,7 +270,13 @@
       } else {
         clearInterval(timerInterval);
         isTimerRunning = false;
-        document.getElementById('start-button').textContent = "スタート";
+
+        currentLabelIndex++;
+        if (currentLabelIndex < document.querySelectorAll('#label-group .label-container').length) {
+          startTimer();
+        } else {
+          document.getElementById('start-button').textContent = "スタート";
+        }
         return;
       }
 
@@ -278,10 +286,11 @@
     }
 
     function startTimer() {
-      const topLabelContainer = document.querySelector('#label-group .label-container');
-      if (topLabelContainer) {
+      const labelContainers = document.querySelectorAll('#label-group .label-container');
+      if (currentLabelIndex < labelContainers.length) {
+        const labelContainer = labelContainers[currentLabelIndex];
         if (!isTimerRunning) {
-          timerInterval = setInterval(() => updateTimerDisplay(topLabelContainer), 1000);
+          timerInterval = setInterval(() => updateTimerDisplay(labelContainer), 1000);
           isTimerRunning = true;
           document.getElementById('start-button').textContent = "ストップ";
         } else {
@@ -292,16 +301,41 @@
       }
     }
 
-
-
     document.getElementById('start-button').addEventListener('click', function () {
+      currentLabelIndex = 0;
       startTimer();
     });
 
     document.querySelectorAll('.delete-button').forEach(button => {
       addDeleteFunctionality(button);
     });
+
+    const chime1 = document.getElementById('chime1');
+    const chime2 = document.getElementById('chime2');
+
+    document.querySelector('.dropdown-content a:first-child').addEventListener('click', function () {
+      if (chime1.paused) {
+        chime1.play();
+        chime2.pause();
+      } else {
+        chime1.pause();
+        chime1.currentTime = 0;
+      }
+    });
+    document.querySelector('.dropdown-content a:nth-child(2)').addEventListener('click', function () {
+      if (chime2.paused) {
+        chime2.play();
+        chime1.pause();
+        chime1.currentTime = 0;
+      } else {
+        chime2.pause();
+        chime2.currentTime = 0;
+      }
+    });
+
+
   </script>
+
 </body>
 
 </html>
