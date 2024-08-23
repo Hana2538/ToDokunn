@@ -230,17 +230,17 @@
       const labelContainer = document.createElement('div');
       labelContainer.className = 'label-container';
       labelContainer.innerHTML = `
-        <div class="rectangle"></div>
-        <input class="subject-label" name="subject-label" type="text" placeholder="やること">
-        <div class="controls">
-          <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
-          <span class="colon">:</span>
-          <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
-          <span class="colon">:</span>
-          <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
-        </div>
-        <button class="delete-button">×</button>
-      `;
+            <div class="rectangle"></div>
+            <input class="subject-label" name="subject-label" type="text" placeholder="やること">
+            <div class="controls">
+                <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
+                <span class="colon">:</span>
+                <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
+                <span class="colon">:</span>
+                <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
+            </div>
+            <button class="delete-button">×</button>
+        `;
       return labelContainer;
     }
 
@@ -313,28 +313,34 @@
     const chime1 = document.getElementById('chime1');
     const chime2 = document.getElementById('chime2');
 
+    // チャイム1の選択イベント
     document.querySelector('.dropdown-content a:first-child').addEventListener('click', function () {
+      alert('チャイム1が選択されました'); // アラートの追加
       if (chime1.paused) {
         chime1.play();
         chime2.pause();
+        chime2.currentTime = 0; // チャイム2を停止してリセット
       } else {
         chime1.pause();
-        chime1.currentTime = 0;
+        chime1.currentTime = 0; // 曲を先頭に戻す
       }
     });
+
+    // チャイム2の選択イベント
     document.querySelector('.dropdown-content a:nth-child(2)').addEventListener('click', function () {
+      alert('チャイム2が選択されました'); // アラートの追加
       if (chime2.paused) {
         chime2.play();
         chime1.pause();
-        chime1.currentTime = 0;
+        chime1.currentTime = 0; // チャイム1を停止してリセット
       } else {
         chime2.pause();
-        chime2.currentTime = 0;
+        chime2.currentTime = 0; // 曲を先頭に戻す
       }
     });
-
-
   </script>
+
+
 
 </body>
 
