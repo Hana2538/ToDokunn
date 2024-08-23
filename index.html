@@ -313,9 +313,9 @@
     const chime1 = document.getElementById('chime1');
     const chime2 = document.getElementById('chime2');
 
-    // チャイム1の選択イベント
     document.querySelector('.dropdown-content a:first-child').addEventListener('click', function () {
-      alert('チャイム1が選択されました'); // アラートの追加
+      alert('チャイム1が選択されました');
+      chime1.play();
       if (chime1.paused) {
         chime1.play();
         chime2.pause();
@@ -328,7 +328,9 @@
 
     // チャイム2の選択イベント
     document.querySelector('.dropdown-content a:nth-child(2)').addEventListener('click', function () {
-      alert('チャイム2が選択されました'); // アラートの追加
+      alert('チャイム2が選択されました');
+      chime2.play();
+
       if (chime2.paused) {
         chime2.play();
         chime1.pause();
@@ -339,7 +341,6 @@
       }
     });
   </script>
-
 
 
 </body>
