@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToDokunn</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
   <style>
     .app-title {
       text-align: center;
@@ -106,8 +107,8 @@
       font-family: 'Hiragino Maru Gothic Pro W4';
       font-size: 25px;
       text-align: left;
-      margin-right: 10px;
-      margin-left: 10px;
+      /* margin-right: 10px;
+      margin-left: 10px; */
       width: 150%;
       background-color: transparent;
       border: none;
@@ -177,6 +178,11 @@
     .dropdown-content {
       font-family: 'Hiragino Maru Gothic Pro W4';
     }
+
+    .sortable-ghost {
+      opacity: 0.5;
+      background-color: #e0e0e0;
+    }
   </style>
 
 </head>
@@ -214,10 +220,12 @@
     </div>
   </div>
 
+
   <script>
     let isTimerRunning = false;
     let timerInterval;
     let currentLabelIndex = 0;
+    let selectedChime = null; // 選択されたチャイム音を保持する変数
 
     function addDeleteFunctionality(button) {
       button.addEventListener('click', function () {
@@ -230,17 +238,17 @@
       const labelContainer = document.createElement('div');
       labelContainer.className = 'label-container';
       labelContainer.innerHTML = `
-            <div class="rectangle"></div>
-            <input class="subject-label" name="subject-label" type="text" placeholder="やること">
-            <div class="controls">
-                <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
-                <span class="colon">:</span>
-                <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
-                <span class="colon">:</span>
-                <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
-            </div>
-            <button class="delete-button">×</button>
-        `;
+    <div class="rectangle"></div>
+    <input class="subject-label" name="subject-label" type="text" placeholder="やること">
+    <div class="controls">
+      <input type="number" class="time-input" placeholder="時" min="0" max="99" value="">
+      <span class="colon">:</span>
+      <input type="number" class="time-input" placeholder="分" min="0" max="59" value="">
+      <span class="colon">:</span>
+      <input type="number" class="time-input" placeholder="秒" min="0" max="59" value="">
+    </div>
+    <button class="delete-button">×</button>
+  `;
       return labelContainer;
     }
 
@@ -271,11 +279,13 @@
         clearInterval(timerInterval);
         isTimerRunning = false;
 
-        currentLabelIndex++;
-        if (currentLabelIndex < document.querySelectorAll('#label-group .label-container').length) {
-          startTimer();
+        // タイマーの音の長さを調整 
+        if (selectedChime == chime1) {
+          playChimeForDuration(selectedChime, 12000);
+        } else if (selectedChime == chime2) {
+          playChimeForDuration(selectedChime, 16000);
         } else {
-          document.getElementById('start-button').textContent = "スタート";
+          proceedToNextTimer(); // チャイム音が選択されていない場合
         }
         return;
       }
@@ -283,6 +293,15 @@
       timeInputs[0].value = String(hours).padStart(2, '0');
       timeInputs[1].value = String(minutes).padStart(2, '0');
       timeInputs[2].value = String(seconds).padStart(2, '0');
+    }
+
+    function proceedToNextTimer() {
+      currentLabelIndex++;
+      if (currentLabelIndex < document.querySelectorAll('#label-group .label-container').length) {
+        startTimer();
+      } else {
+        document.getElementById('start-button').textContent = "スタート";
+      }
     }
 
     function startTimer() {
@@ -313,20 +332,42 @@
     const chime1 = document.getElementById('chime1');
     const chime2 = document.getElementById('chime2');
 
+
     document.querySelector('.dropdown-content a:first-child').addEventListener('click', function () {
-      chime1.play(); // チャイム1をクリック時にすぐ再生
+      selectedChime = chime1;
+      chime1.play();
       alert('チャイム1が選択されました');
-      chime1.pause(); // アラートのOKを押した後に停止
+      chime1.pause();
       chime1.currentTime = 0; // 曲を先頭に戻す
     });
 
-    // チャイム2の選択イベント
     document.querySelector('.dropdown-content a:nth-child(2)').addEventListener('click', function () {
-      chime2.play(); // チャイム2をクリック時にすぐ再生
+      selectedChime = chime2;
+      chime2.play();
       alert('チャイム2が選択されました');
-      chime2.pause(); // アラートのOKを押した後に停止
+      chime2.pause();
       chime2.currentTime = 0; // 曲を先頭に戻す
     });
+
+    // チャイムを指定した期間だけ再生する関数
+    function playChimeForDuration(chime, duration) {
+      chime.play();
+      setTimeout(() => {
+        chime.pause();
+        chime.currentTime = 0; // 曲を先頭に戻す
+        proceedToNextTimer(); // 次のタイマーに進む
+      }, duration);
+    }
+
+    // 既存のスクリプトの続き、または新しいスクリプトセクション内に追加
+    document.addEventListener('DOMContentLoaded', function () {
+      const labelGroup = document.getElementById('label-group');
+      new Sortable(labelGroup, {
+        animation: 150, // ドラッグ時のアニメーション速度（ミリ秒）
+        ghostClass: 'sortable-ghost', // ドラッグ中の要素に適用するクラス
+      });
+    });
+
 
   </script>
 
