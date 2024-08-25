@@ -314,32 +314,20 @@
     const chime2 = document.getElementById('chime2');
 
     document.querySelector('.dropdown-content a:first-child').addEventListener('click', function () {
+      chime1.play(); // チャイム1をクリック時にすぐ再生
       alert('チャイム1が選択されました');
-      chime1.play();
-      if (chime1.paused) {
-        chime1.play();
-        chime2.pause();
-        chime2.currentTime = 0; // チャイム2を停止してリセット
-      } else {
-        chime1.pause();
-        chime1.currentTime = 0; // 曲を先頭に戻す
-      }
+      chime1.pause(); // アラートのOKを押した後に停止
+      chime1.currentTime = 0; // 曲を先頭に戻す
     });
 
     // チャイム2の選択イベント
     document.querySelector('.dropdown-content a:nth-child(2)').addEventListener('click', function () {
+      chime2.play(); // チャイム2をクリック時にすぐ再生
       alert('チャイム2が選択されました');
-      chime2.play();
-
-      if (chime2.paused) {
-        chime2.play();
-        chime1.pause();
-        chime1.currentTime = 0; // チャイム1を停止してリセット
-      } else {
-        chime2.pause();
-        chime2.currentTime = 0; // 曲を先頭に戻す
-      }
+      chime2.pause(); // アラートのOKを押した後に停止
+      chime2.currentTime = 0; // 曲を先頭に戻す
     });
+
   </script>
 
 
