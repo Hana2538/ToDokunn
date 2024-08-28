@@ -189,10 +189,14 @@
     .start-button,
     .plused-button,
     .delete-button {
-      -webkit-tap-highlight-color: transparent;
-      /* タップ時のハイライトを無効化 */
-      color: inherit;
-      /* ボタンの色を継承させる */
+      color: black;
+      /* ボタンの文字色を黒に指定 */
+      -webkit-appearance: none;
+      /* iOSのデフォルトスタイルを無効化 */
+      -moz-appearance: none;
+      /* Firefoxのデフォルトスタイルを無効化 */
+      appearance: none;
+      /* 他のブラウザのデフォルトスタイルを無効化 */
     }
   </style>
 
