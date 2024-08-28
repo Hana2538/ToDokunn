@@ -321,6 +321,18 @@
     }
 
     document.getElementById('start-button').addEventListener('click', function () {
+      // チャイムが選択されていない場合にアラートを表示
+      if (!selectedChime) {
+        alert("チャイム音が選択されていません");
+        return; // タイマーを開始しない
+      }
+
+      currentLabelIndex = 0;
+      startTimer();
+    });
+
+
+    document.getElementById('start-button').addEventListener('click', function () {
       currentLabelIndex = 0;
       startTimer();
     });
