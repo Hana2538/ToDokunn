@@ -53,19 +53,11 @@
       border: none;
       transition: transform 0.2s ease;
       cursor: pointer;
-      position: relative;
-      /* 追加: 相対位置指定を明示 */
-      left: 50%;
-      /* 追加: 親要素の幅の50%の位置へ移動 */
-      transform: translateX(-50%);
-      /* 追加: 自身の幅の50%分左に移動 */
     }
 
     .music-button:hover {
-      transform: translate(-50%, 5px);
-      /* 修正: translateYと中央揃えの調整 */
+      transform: translateY(5px);
     }
-
 
 
     .plused-button {
