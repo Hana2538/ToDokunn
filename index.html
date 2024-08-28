@@ -26,11 +26,13 @@
       margin-left: 10px;
       height: 45px;
       width: 160px;
+      /* widthとheightは要素の大きさを変えられるんだって！ */
       font-family: 'Hiragino Maru Gothic Pro W4';
       font-size: 25px;
       background-color: #fbed77;
       border: none;
       border-radius: 7px;
+      /* ボタンの角を丸〜くできるのだ！ */
       transition: transform 0.2s ease;
       /*  */
     }
@@ -340,6 +342,8 @@
       if (!selectedChime) {
         alert("チャイム音が選択されていません");
         return; // タイマーを開始しない
+      } else {
+        startTimer()
       }
 
       currentLabelIndex = 0;
